@@ -17,6 +17,17 @@ type XMLApplication struct {
 	ProgramApplied string   `xml:"ProgramApplied"`
 }
 
+// SubmitApplicationXML handles XML-based submission
+// @Summary Submit XML Application
+// @Tags Applications
+// @Accept xml
+// @Produce json
+// @Param data body models.Application true "XML Payload"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security BearerAuth
+// @Router /applications/xml [post]
 func SubmitApplicationXML(c *gin.Context) {
 	var app XMLApplication
 

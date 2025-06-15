@@ -15,6 +15,17 @@ type Application struct {
 	ProgramApplied string `json:"program_applied"`
 }
 
+// SubmitApplication handles JSON-based submission
+// @Summary Submit JSON Application
+// @Tags Applications
+// @Accept json
+// @Produce json
+// @Param data body models.Application true "Application Payload"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Security BearerAuth
+// @Router /applications [post]
 func SubmitApplication(c *gin.Context) {
 	var app Application
 
