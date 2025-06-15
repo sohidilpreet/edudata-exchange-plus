@@ -1,0 +1,66 @@
+basePath: /
+definitions:
+  api.Application:
+    properties:
+      dob:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      program_applied:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: sohidilpreet1999@gmail.com
+    name: Dilpreet Singh Sohi
+  description: API for processing student applications via JSON and XML
+  termsOfService: http://swagger.io/terms/
+  title: EduData Exchange+ API
+  version: "1.0"
+paths:
+  /applications:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Application Payload
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/api.Application'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Submit JSON Application
+      tags:
+      - Applications
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
