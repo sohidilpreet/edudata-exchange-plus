@@ -1,4 +1,5 @@
 # EduData Exchange+
+![Go CI](https://github.com/sohidilpreet/edudata-exchange-plus/actions/workflows/go.yml/badge.svg)
 
 🚀 A secure RESTful API system to handle student application submissions in JSON & XML formats.
 
