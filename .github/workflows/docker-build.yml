@@ -3,7 +3,7 @@ name: 🐳 Build Docker Image
 on:
   push:
     branches:
-      - main  # Run only on pushes to the main branch
+      - main 
 
 jobs:
   build:
