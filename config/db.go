@@ -6,14 +6,16 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/lib/pq"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 var DB *sql.DB
 
 func InitDB() error {
-	_ = godotenv.Load()
+	if err := godotenv.Load(".env.test"); err != nil {
+		_ = godotenv.Load()
+	}
 
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASSWORD")
