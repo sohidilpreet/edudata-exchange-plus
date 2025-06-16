@@ -1,4 +1,4 @@
-name: Go Build and Test
+name: Go CI
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:15
