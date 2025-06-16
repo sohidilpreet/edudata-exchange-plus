@@ -1,32 +1,53 @@
-name: Go CI
+name: Go Build and Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: edudata_user
+          POSTGRES_PASSWORD: edudata_pass
+          POSTGRES_DB: edudata_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U edudata_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_USER: edudata_user
+      DB_PASSWORD: edudata_pass
+      DB_NAME: edudata_db
+      DB_HOST: localhost
+      DB_PORT: 5432
 
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: 🛠 Setup Go
+      - name: 🏗️ Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.21
+          go-version: '1.21'
 
-      - name: 📦 Install dependencies
+      - name: 🧹 Tidy modules
         run: go mod tidy
 
-      - name: 🔍 Vet
+      - name: ✅ Lint code
         run: go vet ./...
 
       - name: 🧪 Run tests
         run: go test ./...
 
       - name: 🏗️ Build app
-        run: go build -o edudata-app ./cmd/...
+        run: go build -v ./cmd/...
