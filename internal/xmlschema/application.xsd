@@ -1,0 +1,12 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Application">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FullName" type="xs:string"/>
+        <xs:element name="Email" type="xs:string"/>
+        <xs:element name="DOB" type="xs:date"/>
+        <xs:element name="ProgramApplied" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

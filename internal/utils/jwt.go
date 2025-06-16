@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -22,9 +23,20 @@ func ValidateToken(tokenStr string) (*jwt.RegisteredClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenStr, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
-	if claims, ok := token.Claims.(*jwt.RegisteredClaims); ok && token.Valid {
-		return claims, nil
-	} else {
-		return nil, err
+
+	if err != nil {
+		return nil, fmt.Errorf("❌ token parse error: %v", err)
 	}
+
+	// ✅ Ensure token is not nil before accessing Claims
+	if token == nil || !token.Valid {
+		return nil, fmt.Errorf("❌ invalid or nil token")
+	}
+
+	claims, ok := token.Claims.(*jwt.RegisteredClaims)
+	if !ok {
+		return nil, fmt.Errorf("❌ failed to cast claims")
+	}
+
+	return claims, nil
 }
